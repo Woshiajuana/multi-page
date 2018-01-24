@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Woshiajuana/multi-page/issues"
   },
-  "homepage": "https://github.com/Woshiajuana/multi-page#readme"
+  "homepage": "https://github.com/Woshiajuana/multi-page#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
 }
