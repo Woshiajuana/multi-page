@@ -1,25 +1,26 @@
 {
-  "name": "multi-page",
-  "version": "1.0.0",
-  "description": "webpack building multiple page projects",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Woshiajuana/multi-page.git"
-  },
-  "keywords": [
-    "webpack"
-  ],
-  "author": "[{name:ajuan,email:zhigang.chen@owulia.com}]",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Woshiajuana/multi-page/issues"
-  },
-  "homepage": "https://github.com/Woshiajuana/multi-page#readme",
-  "devDependencies": {
-    "webpack": "^3.10.0"
-  }
+    "name": "multi-page",
+    "version": "1.0.0",
+    "description": "webpack building multiple page projects",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack --config ./build/webpack.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Woshiajuana/multi-page.git"
+    },
+    "keywords": [
+        "webpack"
+    ],
+    "author": "[{name:ajuan,email:zhigang.chen@owulia.com}]",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Woshiajuana/multi-page/issues"
+    },
+    "homepage": "https://github.com/Woshiajuana/multi-page#readme",
+    "devDependencies": {
+        "webpack": "^3.10.0"
+    }
 }
