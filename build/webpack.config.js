@@ -13,7 +13,8 @@ let walkFun = '';
  * */
 (walkFun = (dir) => {
     dir = dir || '.';
-    let directory = path.join(__dirname, './src/views', dir);
+    let directory = path.join(__dirname, '../src/views', dir);
+    console.log(directory)
     fs.readdirSync(directory).forEach((file) => {
         let full_path = path.join(directory, file);
         let dir_arr = full_path.substring(full_path.indexOf('views') + 6).replace(/\\/g, '/').split('\/');
@@ -39,7 +40,7 @@ const config = {
     entry: entry,
     output: {
         filename: '[name]/index.js',
-        path: path.join(__dirname, './dist')
+        path: path.join(__dirname, '../dist')
     },
     module: {
         rules: [
