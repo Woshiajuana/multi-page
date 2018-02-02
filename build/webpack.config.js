@@ -90,8 +90,9 @@ const config = {
         fs: 'empty'
     },
 };
-
+console.log('==============================================')
 for (let key in entry) {
+    console.log(entry[key].replace('entry.js', 'index.html'))
     const htmlPlugin = new HtmlWebpackPlugin({
         filename: `${key}/index.html`,
         template: entry[key].replace('entry.js', 'index.html'),
