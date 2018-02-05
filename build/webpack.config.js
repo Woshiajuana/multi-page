@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
-
 const entry = {};
 let walkFun = '';
 /**
@@ -44,23 +43,31 @@ const config = {
     },
     module: {
         rules: [
-            // //处理css文件
-            // {
-            //     test: /\.css$/,
-            //     exclude: /node_modules/,
-            //     use: ExtractTextPlugin.extract({
-            //         fallback: 'style-loader',
-            //         use: 'css-loader'
-            //     }),
-            // },
+            //处理css文件
             {
-                test: /\.scss$/,
-                loader:'style-loader!css-loader!sass-loader'
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                }),
+            },
+            {
+                test: /.scss$/,
+                use: ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader"
+                    }],
+                    // 在开发环境使用 style-loader
+                    fallback: "style-loader"
+                })
             }
         ]
     },
     plugins: [
-    //     new ExtractTextPlugin('[name]/css/index.css'),
+        new ExtractTextPlugin('[name]/css/index.css'),
     ],
     node: {
         fs: 'empty'
