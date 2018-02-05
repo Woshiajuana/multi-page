@@ -44,31 +44,23 @@ const config = {
     },
     module: {
         rules: [
-            //处理css文件
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader'
-                }),
-            },
-            //处理scss文件
+            // //处理css文件
+            // {
+            //     test: /\.css$/,
+            //     exclude: /node_modules/,
+            //     use: ExtractTextPlugin.extract({
+            //         fallback: 'style-loader',
+            //         use: 'css-loader'
+            //     }),
+            // },
             {
                 test: /\.scss$/,
-                // exclude: /node_modules/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                loader:'style-loader!css-loader!sass-loader'
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin('[name]/css/index.css'),
+    //     new ExtractTextPlugin('[name]/css/index.css'),
     ],
     node: {
         fs: 'empty'
