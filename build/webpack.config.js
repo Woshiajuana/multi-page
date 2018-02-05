@@ -27,7 +27,7 @@ let walkFun = '';
                 page_name = index === (dir_arr.length - 1) ? page_name : (page_name ? page_name + '/' + item : item);
             });
             entry[page_name] = full_path;
-        } else if (last_dir !== 'js' && last_dir !== 'css' && last_dir !== 'img' && stat.isDirectory()) {
+        } else if (['js','css','img','scss'].indexOf(last_dir) === -1 && stat.isDirectory()) {
             let sub_dir = path.join(dir, file);
             walkFun(sub_dir);
         }
