@@ -1,9 +1,102 @@
 @import "reset";
+@import "define";
 
 body{
     background: url(../../../assets/images/music-player-bg.jpg) no-repeat center top;
 }
 .header-wrap{
+
+}
+.session{
+    @extend %clearfix;
+    width: 1280px;
+    margin: 0 auto;
+}
+.logo{
+    width: 160px;
+    height: 78px;
+    background: url(../../../assets/images/player-logo.png) no-repeat;
+}
+
+.body-wrap{
+    @extend %clearfix;
+}
+.left{
+    @extend %fl;
+    width: 810px;
+}
+.list-wrap{
+    @extend %w100;
+}
+.list-item{
+    @extend %clearfix;
+}
+.music-list{
+    .list-item{
+        &:nth-child(1n){
+            background-color: rgba(0,0,0,.1);
+        }
+    }
+}
+.list-item-part{
+    @extend %fl;
+    @extend %cfff;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    &.check{
+        width: 66px;
+    }
+    &.name{
+        width: 436px;
+    }
+    &.author{
+        width: 232px;
+    }
+    &.time{
+
+    }
+}
+.check-box{
+    width: 16px;
+    height: 16px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    &.active{
+        .check-inner{
+            @extend %db;
+        }
+    }
+}
+.check-inner{
+    @extend %dn;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: 3px 0 0 3px;
+}
+.right{
+    margin-left: 810px;
+    height: 200px;
     background-color: red;
-    color: red;
+}
+.music-pic{
+
+}
+.music-pic-image{
+
+}
+.music-words{
+
+}
+.footer-wrap{
+    @extend %pf;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: rgba(0,0,0,.4);
+}
+.footer-inner{
+    height: 80px;
 }

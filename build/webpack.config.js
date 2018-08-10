@@ -13,7 +13,7 @@ let walkFun = '';
 (walkFun = (dir) => {
     dir = dir || '.';
     let directory = path.join(__dirname, '../src/views', dir);
-    console.log(directory)
+    // console.log(directory)
     fs.readdirSync(directory).forEach((file) => {
         let full_path = path.join(directory, file);
         let dir_arr = full_path.substring(full_path.indexOf('views') + 6).replace(/\\/g, '/').split('\/');
@@ -33,8 +33,6 @@ let walkFun = '';
     })
 })();
 
-console.log(entry);
-
 const config = {
     entry: entry,
     output: {
@@ -43,6 +41,10 @@ const config = {
     },
     module: {
         rules: [
+            // {
+            //     test: /\.html$/,
+            //     loader: 'html-withimg-loader'
+            // },
             {
                 test: /\.js(\?[^?]+)?$/,
                 loaders: ['babel-loader'],
@@ -90,9 +92,9 @@ const config = {
         fs: 'empty'
     },
 };
-console.log('==============================================')
+
 for (let key in entry) {
-    console.log(entry[key].replace('entry.js', 'index.html'))
+    // console.log(entry[key].replace('entry.js', 'index.html'))
     const htmlPlugin = new HtmlWebpackPlugin({
         filename: `view/${key}.html`,
         template: entry[key].replace('entry.js', 'index.html'),
@@ -102,7 +104,5 @@ for (let key in entry) {
     });
     config.plugins.push(htmlPlugin);
 }
-
-
 
 module.exports = config;
