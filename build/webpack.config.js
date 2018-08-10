@@ -38,11 +38,16 @@ console.log(entry);
 const config = {
     entry: entry,
     output: {
-        filename: '[name]/index.js',
+        filename: 'js/[name].js',
         path: path.join(__dirname, '../dist')
     },
     module: {
         rules: [
+            {
+                test: /\.js(\?[^?]+)?$/,
+                loaders: ['babel-loader'],
+                exclude: /node_modules/
+            },
             //处理css文件
             {
                 test: /\.css$/,
@@ -51,6 +56,18 @@ const config = {
                     fallback: 'style-loader',
                     use: 'css-loader'
                 }),
+            },
+            {
+                test: /\.(png|jpeg|jpg|gif|svg)$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: '1024',
+                        publicPath: '/dist/',
+                        name: 'images/[name].[hash:7].[ext]'
+                    }
+                }],
             },
             {
                 test: /.scss$/,
@@ -67,7 +84,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('[name]/css/index.css'),
+        new ExtractTextPlugin('css/[name].css'),
     ],
     node: {
         fs: 'empty'
@@ -77,7 +94,7 @@ console.log('==============================================')
 for (let key in entry) {
     console.log(entry[key].replace('entry.js', 'index.html'))
     const htmlPlugin = new HtmlWebpackPlugin({
-        filename: `${key}/index.html`,
+        filename: `view/${key}.html`,
         template: entry[key].replace('entry.js', 'index.html'),
         minify: { removeAttributeQuotes: true },
         chunks: [key, 'common'],
