@@ -124,10 +124,14 @@ $(function () {
         },
         addMusic(music) {
             let index = this.findMusic(music);
-            if(index === -1){
-                this.list.push(music);
-                this.saveList();
-                window.location.href = window.location.origin + this.href;
+            if(index !== -1){
+                this.list.splice(index, 1);
+            }
+            this.list.unshift(music);
+            this.saveList();
+            if (!Store.dataToLocalStorageOperate.achieve('IS_OPEN')) {
+                Store.dataToLocalStorageOperate.save('IS_OPEN',true);
+                window.open(window.location.origin + this.href);
             }
             return this;
         },
@@ -136,6 +140,7 @@ $(function () {
             Store.dataToLocalStorageOperate.save(this.key, this.list);
         },
         findMusic (music) {
+            this.getList();
             let cur_index = Store.findFirstIndexForArr(this.list, (item, index) => {
                 return (item.id === music.id);
             });

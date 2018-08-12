@@ -94,6 +94,7 @@
             this.__duration = -1;
             this.regex_time.lastIndex = 0;
             this.list = [];
+            $('#'+this.prefixid+'_list').css('marginTop', 0);
         },
         animata: function(elem) {
             var f = j = 0, callback, _this={},

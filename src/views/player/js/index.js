@@ -39,7 +39,6 @@ $(function () {
             this.innerLrc(index);
             return this;
         },
-
         // 渲染歌词
         innerLrc (index) {
             let music = this.list[index];
@@ -48,7 +47,6 @@ $(function () {
             }
             return this;
         },
-
         // 歌曲事件监听
         addMonitorEvent () {
             let that = this;
@@ -340,6 +338,7 @@ $(function () {
         list: null,
         init () {
             this.getList();
+            this.addMonitorEvent();
             return this;
         },
         remove(arr) {
@@ -377,9 +376,21 @@ $(function () {
                 MusicListController.innerHTML(arr, index);
                 MusicPlayerController.setCurIndex(index);
             }
+        },
+        addMonitorEvent () {
+            let that = this;
+            window.addEventListener('storage', function(){
+                that.restart();
+                MusicPlayerController.play(0);
+            })
         }
     };
     MusicResourcesController.init().start();
+
+    Store.dataToLocalStorageOperate.save('IS_OPEN', true);
+    window.onbeforeunload = function () {
+        Store.dataToLocalStorageOperate.save('IS_OPEN', false);
+    };
 
     // 格式化时间
     function formatTime (time) {
