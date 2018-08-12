@@ -31,7 +31,6 @@ body{
 }
 .list-item-title,
 .list-item{
-    @extend %cp;
     @extend %clearfix;
     &.active{
         .list-item-part{
@@ -66,9 +65,18 @@ body{
     font-size: 14px;
     &.check{
         padding-left: 14px;
-        width: 52px;
+        width: 60px;
+    }
+    &.title-name{
+        width: 436px;
+        span{
+            @extend %cp;
+            @extend %dn;
+            color: red;
+        }
     }
     &.name{
+        @extend %cp;
         width: 436px;
     }
     &.author{
@@ -114,7 +122,7 @@ body{
     padding: 10px;
 }
 .music-pic-image{
-    @extend %db;
+    @extend %dn;
     width: 320px;
     height: 320px;
 }
@@ -251,8 +259,16 @@ body{
 }
 .play-mode-wrap{
     margin-left: 40px;
-    background-color: red;
     margin-right: 27px;
+    &.play-mode-0{
+        background-color: red;
+    }
+    &.play-mode-1{
+        background-color: #ffbb29;
+    }
+    &.play-mode-2{
+        background-color: #3278ff;
+    }
 }
 .play-volume-wrap{
     height: 20px;

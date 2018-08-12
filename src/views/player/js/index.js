@@ -3,25 +3,6 @@ import Store from '../../../assets/lib/store'
 
 $(function () {
 
-    // 音乐资源控制器
-    const MusicResourcesController = {
-        key: 'MUSIC_LIST',
-        list: null,
-        init () {
-            this.getList();
-            return this;
-        },
-        remove(index) {
-            this.list.splice(index, 1);
-            Store.dataToLocalStorageOperate.save(this.key, this.list);
-        },
-        getList () {
-            this.list = Store.dataToLocalStorageOperate.achieve(this.key) || [];
-            return this.list;
-        },
-    };
-    let arr = MusicResourcesController.init().getList();
-
     // 音乐列表控制器
     const MusicListController = {
         $el: $('#music-wrap'),
@@ -29,6 +10,7 @@ $(function () {
         $el_all: $('#check-all'),
         $el_title: $('#music-title'),
         $el_src: $('#music-pic-image'),
+        $el_delete: $('#list-delete'),
         list: [],
         // 初始化
         init (list, index) {
@@ -60,17 +42,43 @@ $(function () {
         addMonitorEvent () {
             let that = this;
             // 选取播放歌曲
-            this.$el.on('click', '.list-item', function (e) {
-                let index = $(this).data('index');
+            this.$el.on('click', '.name', function (e) {
+                let index = $(this).parent('.list-item').data('index');
                 MusicPlayerController.play(index);
                 that.handleSwitchItem(index);
             }).on('click', '.check-box', function (e) {
-                that.channelCheckHandle($(this));
+                that.handleCheck($(this));
+                that.judgeCheck();
                 e.stopPropagation();
             }).on('click', '#check-all', function (e) {
-                that.channelAllHandle($(this));
+                if (!that.list.length) return;
+                that.handleCheckAll($(this));
+                that.judgeCheck();
+            }).on('click', '#list-delete', function (e) {
+                that.handleDelete()
             });
             return this;
+        },
+        // 删除
+        handleDelete() {
+            let arr = [];
+            let that = this;
+            this.$el_list.find('.list-item').each(function() {
+                let check = $(this).find('.check-box').hasClass('active');
+                if (check) {
+                    let index = $(this).data('index');
+                    arr.push(that.list[index]);
+                }
+            });
+            this.$el_all.hasClass('active') && this.handleCheck(this.$el_all);
+            this.$el_delete.hide();
+            this.$el_src.hide();
+            this.$el_title.text('');
+            MusicResourcesController.remove(arr).restart();
+        },
+        // 选中
+        handleCheck(el){
+            el.toggleClass('active');
         },
         // 切换选中歌曲
         handleSwitchItem (i) {
@@ -83,13 +91,34 @@ $(function () {
             });
             let music = this.list[i];
             this.$el_title.text(music.title);
+            this.$el_src.show();
             this.$el_src.prop('src', music.src);
             return this;
         },
+        // 判断是否选中
+        judgeCheck () {
+            let all_check = true;
+            let check = false;
+            $('#music-wrap .check-box').each(function(index, item){
+                let type = $(this).hasClass('active');
+                if (type) check = true;
+                if (!type) all_check = false;
+            });
+            if (all_check){
+                this.$el_all.addClass('active')
+            } else {
+                this.$el_all.removeClass('active')
+            }
+            if (check) {
+                this.$el_delete.show();
+            } else {
+                this.$el_delete.hide();
+            }
+        },
         // 选中全部
-        channelAllHandle (el) {
-            let type = this.channelCheckHandle(el);
-            if (type) {
+        handleCheckAll () {
+            let type = this.$el_all.hasClass('active');
+            if (!type) {
                 $('#music-list .check-box').addClass('active')
             } else {
                 $('#music-list .check-box').removeClass('active')
@@ -106,7 +135,6 @@ $(function () {
             return !type;
         }
     };
-    MusicListController.init(arr, 0);
 
     // 音乐播放控制器
     const MusicPlayerController = {
@@ -115,25 +143,38 @@ $(function () {
         $el_play: $('#play-ctr'),
         $el_title: $('.play-music-title'),
         list: null,
+        music: null,
+        mode: 0,
         init (list, index = 0) {
             this.list = list;
             this.index = index;
+            this.addMonitorEvent();
             let that = this;
-            $('#player').jPlayer({
-                ready: function () {
-                    that.play(that.index)
-                },
+            let options = {
                 error: function () {
+                    if (that.list.length === 0) return;
                     that.handleNext('next');
                 },
                 supplied: 'mp3',
                 wmode: 'window',
-            });
-            this.addMonitorEvent();
+            };
+            if (this.list.length) {
+                options.ready = function () {
+                    that.play(that.index)
+                }
+            }
+            $('#player').jPlayer(options);
             return this;
         },
         setList(list) {
             this.list = list;
+            return this;
+        },
+        getCurMusic () {
+            return this.music;
+        },
+        setCurIndex (index) {
+            this.index = index;
             return this;
         },
         getCurIndex () {
@@ -143,12 +184,18 @@ $(function () {
             this.index = index;
             let music = this.list[this.index];
             if (music) {
-                $('#player').jPlayer('setMedia', {
+                this.music = music;
+                this.$el_player.jPlayer('setMedia', {
                     mp3: music.file,
                 }).jPlayer('play');
                 this.$el_title.text(music.title);
                 MusicListController.handleSwitchItem(index);
                 this.$el_play.addClass('play').removeClass('pause');
+            } else {
+                this.$el_player.jPlayer('stop');
+                this.$el_title.text('');
+                $('.play-music-time').text('——/——');
+                this.$el_play.removeClass('pause').addClass('play');
             }
             return this;
         },
@@ -166,6 +213,8 @@ $(function () {
                 that.handleNext();
             }).on('click', '.down', function (e) {
                 that.handleNext('next');
+            }).on('click', '#play-mode', function (e) {
+                that.handleSetMode($(this));
             });
             this.$el_player.bind($.jPlayer.event.ended, (e) => {
                 that.handleNext('next');
@@ -175,6 +224,14 @@ $(function () {
             });
             return this;
         },
+        handleSetMode($el) {
+            this.mode++;
+            this.mode = this.mode % 3;
+            $el.removeClass('play-mode-0')
+                .removeClass('play-mode-1')
+                .removeClass('play-mode-2');
+            $el.addClass('play-mode-' + this.mode);
+        },
         // timeupdate
         handlePlaying(e) {
             let progress = e.jPlayer.status.currentPercentAbsolute;
@@ -183,24 +240,54 @@ $(function () {
             $('.play-volume-ctr').css({left: volume + '%'});
             $('.play-bar-con').css({width: progress + '%'});
             $('.play-bar-ctr').css({left: progress + '%'});
-            let time = Math.round(e.jPlayer.status.currentTime);
-            this.list[this.index].duration = Math.round(e.jPlayer.status.duration);
-            let music_time = formatTime(time) + '/' + formatTime(this.list[this.index].duration);
-            $('.play-music-time').text(music_time);
+            if (this.list[this.index]) {
+                let time = Math.round(e.jPlayer.status.currentTime);
+                this.list[this.index].duration = Math.round(e.jPlayer.status.duration);
+                let music_time = formatTime(time) + '/' + formatTime(this.list[this.index].duration);
+                $('.play-music-time').text(music_time);
+            }
         },
         // 下一首 上一首
         handleNext(type) {
             let next_index = null;
             let len = this.list.length;
-            if (type === 'next') {
-                next_index = (this.index + 1) % len;
-            } else {
-                next_index = (this.index - 1 + len) % len;
+            if (!len) return this;
+            let copy_arr = [...this.list];
+            switch (this.mode) {
+                // 循环播放
+                case 0:
+                    if (type === 'next') {
+                        next_index = (this.index + 1) % len;
+                    } else {
+                        next_index = (this.index - 1 + len) % len;
+                    }
+                    break;
+                // 单曲循环
+                case 1:
+                    next_index = this.index;
+                    break;
+                // 随机循环
+                case 2:
+                    if (this.list.length === 1) {
+                        next_index = this.index;
+                    } else {
+                        copy_arr.splice(this.index, 1);
+                        let music = copy_arr[Math.floor(Math.random() * copy_arr.length)];
+                        next_index = Store.findFirstIndexForArr(this.list, (item, index) => {
+                            return music.id === item.id;
+                        })
+                    }
+                    break;
             }
+            console.log(next_index)
             this.play(next_index);
         },
         // 暂停
         handlePlayOrPause(el) {
+            if (this.list.length === 0) {
+                el.removeClass('pause').addClass('play');
+                return;
+            }
             if (el.hasClass('play')){
                 el.removeClass('play').addClass('pause');
                 this.$el_player.jPlayer('pause');
@@ -214,74 +301,64 @@ $(function () {
             return (e.clientX - el.getBoundingClientRect().left) / el.clientWidth;
         }
     };
-    MusicPlayerController.init(arr);
 
+    // 音乐资源控制器
+    const MusicResourcesController = {
+        key: 'MUSIC_LIST',
+        list: null,
+        init () {
+            this.getList();
+            return this;
+        },
+        remove(arr) {
+            arr.forEach((music) => {
+                this.list.forEach((item, index) => {
+                    if(music.id === item.id) this.list.splice(index, 1);
+                });
+            });
+            this.save();
+            return this;
+        },
+        save() {
+            Store.dataToLocalStorageOperate.save(this.key, this.list);
+        },
+        getList () {
+            this.list = Store.dataToLocalStorageOperate.achieve(this.key) || [];
+            return this.list;
+        },
+        start () {
+            let arr = this.getList();
+            MusicListController.init(arr, 0);
+            MusicPlayerController.init(arr, 0);
+        },
+        restart(){
+            let arr = this.getList();
+            let music = MusicPlayerController.getCurMusic();
+            let index = Store.findFirstIndexForArr(arr, (item) => {
+                return item.id === music.id;
+            });
+            MusicPlayerController.setList(arr);
+            if (index === -1){
+                MusicListController.innerHTML(arr, 0);
+                MusicPlayerController.play(0);
+            } else {
+                MusicListController.innerHTML(arr, index);
+                MusicPlayerController.setCurIndex(index);
+            }
+        }
+    };
+    MusicResourcesController.init().start();
 
-
-    // let duration = null;
-    // $('#player').jPlayer({
-    //     ready: function () {
-    //         $(this).jPlayer('setMedia', {
-    //             mp3: arr[0].file,
-    //         }).jPlayer('play');
-    //     },
-    //     // swfPath: "../../dist/jplayer",
-    //     supplied: 'mp3',
-    //     wmode: 'window',
-    //     // useStateClassSkin: true,
-    //     // autoBlur: false,
-    //     // smoothPlayBar: true,
-    //     // keyEnabled: true,
-    //     // remainingDuration: true,
-    //     // toggleDuration: true
-    // });
-    //
-    // $('#player').bind($.jPlayer.event.timeupdate, (e) => {
-    //     let progress = e.jPlayer.status.currentPercentAbsolute;
-    //     let volume = e.jPlayer.options.volume * 100;
-    //     $('.play-volume-con').css({width: volume + '%'});
-    //     $('.play-volume-ctr').css({left: volume + '%'});
-    //     $('.play-bar-con').css({width: progress + '%'});
-    //     $('.play-bar-ctr').css({left: progress + '%'});
-    //     let time = Math.round(e.jPlayer.status.currentTime);
-    //     duration = Math.round(e.jPlayer.status.duration);
-    //     let music_time = formatTime(time) + '/' + formatTime(duration);
-    //     $('.play-music-time').text(music_time);
-    // });
-    //
-    // $('#play-ctr').on('click', function () {
-    //     if ($(this).hasClass('play')){
-    //         $(this).removeClass('play').addClass('pause');
-    //         $('#player').jPlayer('pause');
-    //     } else {
-    //         $(this).removeClass('pause').addClass('play');
-    //         $('#player').jPlayer('play');
-    //     }
-    // });
-    //
-    // $('.play-bar-inner').on('click', function (e) {
-    //     let progress = (e.clientX - this
-    //             .getBoundingClientRect().left) / this.clientWidth;
-    //     $('#player').jPlayer('play', duration * progress);
-    // });
-    //
-    // $('.play-volume-inner').on('click', function (e) {
-    //     let progress = (e.clientX - this
-    //             .getBoundingClientRect().left) / this.clientWidth;
-    //     $('#player').jPlayer('volume', progress);
-    // });
+    // 格式化时间
+    function formatTime (time) {
+        let ss = time % 60;
+        let mm = Math.floor(time / 60);
+        if (mm < 10) mm = '0' + mm;
+        if (ss < 10) ss = '0' + ss;
+        time = mm + ':' + ss;
+        return time;
+    }
 
 } ());
 
-
-// 格式化时间
-
-function formatTime (time) {
-    let ss = time % 60;
-    let mm = Math.floor(time / 60);
-    if (mm < 10) mm = '0' + mm;
-    if (ss < 10) ss = '0' + ss;
-    time = mm + ':' + ss;
-    return time;
-}
 
