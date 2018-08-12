@@ -147,7 +147,7 @@ $(function () {
         }
     };
 
-    let time = '';
+    let lrc_time = 0;
     // 音乐播放控制器
     const MusicPlayerController = {
         $el: $('#player-warp'),
@@ -169,17 +169,18 @@ $(function () {
                 },
                 supplied: 'mp3',
                 wmode: 'window',
-                timeupdate: function(event) {
-                    if (event.jPlayer.status.currentTime == 0) {
-                        time = "";
-                    } else {
-                        time = event.jPlayer.status.currentTime;
-                    }
-                },
+                // timeupdate: function(event) {
+                //     if (event.jPlayer.status.currentTime == 0) {
+                //         time = "";
+                //     } else {
+                //         time = event.jPlayer.status.currentTime;
+                //     }
+                //
+                // },
                 play: function(event) {
-                    //点击开始方法调用lrc。start歌词方法 返回时间time
                     $.lrc.start($('#lrc_content').val(), function() {
-                        return time;
+                        console.log('lrc_time', lrc_time)
+                        return lrc_time;
                     });
                 },
             };
@@ -246,6 +247,7 @@ $(function () {
             });
             this.$el_player.bind($.jPlayer.event.timeupdate, (e) => {
                 that.handlePlaying(e);
+                lrc_time = e.jPlayer.status.currentTime;
             });
             return this;
         },

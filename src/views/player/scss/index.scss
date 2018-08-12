@@ -157,13 +157,6 @@ body{
     @extend %h100;
     @extend %oh;
     @extend %pr;
-    //&:after{
-    //    content: '';
-    //    @extend %pa;
-    //    @extend %w100;
-    //    @extend %l0;
-    //    height: 30px;
-    //}
 }
 .music-words-con{
     @extend %pa;
@@ -173,6 +166,9 @@ body{
     @extend %b0;
     right: -20px;
     overflow-y: auto;
+    li.hover{
+        color: red;
+    }
 }
 .footer-wrap{
     @extend %pf;
