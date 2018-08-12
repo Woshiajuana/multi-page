@@ -20,7 +20,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/2.jpg',
-            lrc: '../media/1.lrc',
+            lrc: '../media/2.lrc',
         },
         {
             id: '3',
@@ -29,7 +29,7 @@ $(function () {
             duration: 200,
             file: '../media/880211.mp3',
             src: 'http://www.owulia.com/static/temp/3.jpg',
-            lrc: '../media/1.lrc',
+            lrc: '../media/3.lrc',
         },
         {
             id: '4',
@@ -38,7 +38,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
-            lrc: '../media/1.lrc',
+            lrc: '../media/4.lrc',
         },
         {
             id: '5',
@@ -47,7 +47,6 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
-            lrc: '../media/1.lrc',
         },
         {
             id: '6',

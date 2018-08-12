@@ -205,6 +205,7 @@ $(function () {
                 MusicListController.handleSwitchItem(index);
                 this.$el_play.addClass('play').removeClass('pause');
             } else {
+                $('#lrc_list').html('');
                 this.$el_player.jPlayer('stop');
                 this.$el_title.text('');
                 $('.play-music-time').text('——/——');
@@ -215,7 +216,7 @@ $(function () {
         lrcStart (music) {
             if(music.lrc) {
                 $.get(music.lrc,function(data,status){
-                    if(status !== 'success') return '';
+                    if(status !== 'success') return $('#lrc_list').html(' <li>获取歌词失败</li>');
                     $.lrc.start(data, function() {
                         return lrc_time;
                     });
