@@ -216,12 +216,17 @@ $(function () {
         lrcStart (music) {
             if(music.lrc) {
                 $.get(music.lrc,function(data,status){
-                    if(status !== 'success') return $('#lrc_list').html(' <li>获取歌词失败</li>');
-                    $.lrc.start(data, function() {
-                        return lrc_time;
-                    });
+                    if(status !== 'success') {
+                        $.lrc.stop();
+                        return $('#lrc_list').html(' <li>获取歌词失败</li>');
+                    } else {
+                        $.lrc.start(data, function() {
+                            return lrc_time;
+                        });
+                    }
                 });
             } else  {
+                $.lrc.stop();
                 $('#lrc_list').html(' <li>暂无歌词</li>')
             }
         },
