@@ -169,24 +169,10 @@ $(function () {
                 },
                 supplied: 'mp3',
                 wmode: 'window',
-                // timeupdate: function(event) {
-                //     if (event.jPlayer.status.currentTime == 0) {
-                //         time = "";
-                //     } else {
-                //         time = event.jPlayer.status.currentTime;
-                //     }
-                //
-                // },
-                play: function(event) {
-                    $.lrc.start($('#lrc_content').val(), function() {
-                        console.log('lrc_time', lrc_time)
-                        return lrc_time;
-                    });
-                },
             };
             if (this.list.length) {
                 options.ready = function () {
-                    that.play(that.index)
+                    that.play(that.index);
                 }
             }
             $('#player').jPlayer(options);
@@ -214,6 +200,7 @@ $(function () {
                 this.$el_player.jPlayer('setMedia', {
                     mp3: music.file,
                 }).jPlayer('play');
+                this.lrcStart(music);
                 this.$el_title.text(music.title);
                 MusicListController.handleSwitchItem(index);
                 this.$el_play.addClass('play').removeClass('pause');
@@ -224,6 +211,18 @@ $(function () {
                 this.$el_play.removeClass('pause').addClass('play');
             }
             return this;
+        },
+        lrcStart (music) {
+            if(music.lrc) {
+                $.get(music.lrc,function(data,status){
+                    if(status !== 'success') return '';
+                    $.lrc.start(data, function() {
+                        return lrc_time;
+                    });
+                });
+            } else  {
+                $('#lrc_list').html(' <li>暂无歌词</li>')
+            }
         },
         addMonitorEvent() {
             let that = this;
