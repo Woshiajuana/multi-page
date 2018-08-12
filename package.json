@@ -37,7 +37,8 @@
     "serve": "^9.4.2",
     "style-loader": "^0.20.1",
     "url-loader": "^1.0.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "wow-cool": "0.0.3"
   },
   "browserslist": [
     "defaults",

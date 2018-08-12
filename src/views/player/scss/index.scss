@@ -1,5 +1,5 @@
-@import "reset";
-@import "define";
+@import "../../../assets/scss/_reset";
+@import "../../../assets/scss/_define";
 
 body{
     background: url(../../../assets/images/music-player-bg.jpg) no-repeat center top;
@@ -20,6 +20,7 @@ body{
 
 .body-wrap{
     @extend %clearfix;
+    padding-bottom: 120px;
 }
 .left{
     @extend %fl;
@@ -28,13 +29,32 @@ body{
 .list-wrap{
     @extend %w100;
 }
+.list-item-title,
 .list-item{
+    @extend %cp;
     @extend %clearfix;
+    &.active{
+        .list-item-part{
+            color: red;
+        }
+        .icon{
+            @extend %dib;
+        }
+        .index{
+            @extend %dn;
+        }
+    }
+    .icon{
+        @extend %dn;
+    }
+    .index{
+        @extend %dib;
+    }
 }
 .music-list{
     .list-item{
-        &:nth-child(1n){
-            background-color: rgba(0,0,0,.1);
+        &:nth-child(odd){
+            background-color: rgba(0,0,0,.05);
         }
     }
 }
@@ -58,6 +78,7 @@ body{
 
     }
 }
+.check-all-box,
 .check-box{
     @extend %cp;
     @extend %fl;
@@ -84,18 +105,60 @@ body{
     margin-left: 8px;
 }
 .right{
-    margin-left: 810px;
-    height: 200px;
-    background-color: red;
+    margin-left: 860px;
 }
 .music-pic{
-
+    width: 320px;
+    height: 320px;
+    background-color: #fff;
+    padding: 10px;
 }
 .music-pic-image{
-
+    @extend %db;
+    width: 320px;
+    height: 320px;
 }
-.music-words{
-
+.music-title,
+.music-words-wrap{
+    @extend %tac;
+    @extend %cfff;
+    width: 340px;
+    p{
+        @extend %cfff;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+}
+.music-title{
+    @extend %fwn;
+    font-size: 16px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.music-words-wrap{
+    height: 320px;
+}
+.music-words-inner{
+    @extend %w100;
+    @extend %h100;
+    @extend %oh;
+    @extend %pr;
+    //&:after{
+    //    content: '';
+    //    @extend %pa;
+    //    @extend %w100;
+    //    @extend %l0;
+    //    height: 30px;
+    //}
+}
+.music-words-con{
+    @extend %pa;
+    @extend %h100;
+    @extend %t0;
+    @extend %l0;
+    @extend %b0;
+    right: -20px;
+    overflow-y: auto;
 }
 .footer-wrap{
     @extend %pf;
@@ -106,5 +169,110 @@ body{
     background-color: rgba(0,0,0,.4);
 }
 .footer-inner{
-    height: 80px;
+    @extend %clearfix;
+    padding-top: 30px;
+    height: 50px;
+}
+.play-item{
+    @extend %fl;
+}
+.play-ctr-wrap{
+    @extend %clearfix;
+    padding-left: 42px;
+    padding-right: 42px;
+}
+.play-ctr-item{
+    @extend %fl;
+    margin-right: 42px;
+    &.up{
+        background-color: red;
+    }
+    &.play{
+        background-color: #ffc3a5;
+    }
+    &.pause{
+        background-color: #ffbb29;
+    }
+    &.down{
+        background-color: #7544ff;
+    }
+}
+.play-bar-wrap{
+    height: 20px;
+    width: 640px;
+}
+.play-prompt{
+    height: 18px;
+    line-height: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+    span{
+        font-size: 12px;
+        color: #999;
+    }
+}
+.play-music-title{
+    @extend %fl;
+}
+.play-music-time{
+    @extend %fr;
+}
+.play-bar-inner{
+    @extend %cp;
+    @extend %w100;
+    @extend %pr;
+    background-color: #fff;
+    height: 2px;
+}
+.play-volume-con,
+.play-bar-con{
+    @extend %h100;
+    width: 0;
+    background-color: red;
+    transition: all 0.3s;
+}
+.play-volume-ctr,
+.play-bar-ctr{
+    @extend %cp;
+    @extend %pa;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: red;
+    top: 50%;
+    margin-top: -4px;
+    left: 0;
+    transition: all 0.3s;
+}
+.play-icon{
+    @extend %cp;
+    width: 20px;
+    height: 20px;
+}
+.play-mode-wrap{
+    margin-left: 40px;
+    background-color: red;
+    margin-right: 27px;
+}
+.play-volume-wrap{
+    height: 20px;
+}
+.play-volume-icon{
+    @extend %fl;
+    background-color: red;
+    margin-right: 10px;
+}
+.play-volume-inner{
+    @extend %cp;
+    @extend %fl;
+    @extend %pr;
+    width: 120px;
+    height: 2px;
+    margin-top: 9px;
+    background-color: #fff;
+}
+.player{
+    @extend %pa;
+    width: 0;
+    height: 0;
 }
