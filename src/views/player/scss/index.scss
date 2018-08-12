@@ -1,6 +1,8 @@
 @import "../../../assets/scss/_reset";
 @import "../../../assets/scss/_define";
-
+%bcgicon{
+    background: url(../../../assets/images/player-icon.png) no-repeat;
+}
 body{
     background: url(../../../assets/images/music-player-bg.jpg) no-repeat center top;
 }
@@ -34,10 +36,14 @@ body{
     @extend %clearfix;
     &.active{
         .list-item-part{
-            color: red;
+            color: #fff;
         }
         .icon{
             @extend %dib;
+            @extend %bcgicon;
+            width: 10px;
+            height: 7px;
+            background-position: -110px 0;
         }
         .index{
             @extend %dn;
@@ -72,7 +78,7 @@ body{
         span{
             @extend %cp;
             @extend %dn;
-            color: red;
+            color: #fff;
         }
     }
     &.name{
@@ -193,16 +199,19 @@ body{
     @extend %fl;
     margin-right: 42px;
     &.up{
-        background-color: red;
+        @extend %bcgicon;
+        background-position: 0 0;
     }
     &.play{
-        background-color: #ffc3a5;
+        @extend %bcgicon;
+        background-position: -20px 0;
     }
     &.pause{
         background-color: #ffbb29;
     }
     &.down{
-        background-color: #7544ff;
+        @extend %bcgicon;
+        background-position: -40px 0;
     }
 }
 .play-bar-wrap{
@@ -210,8 +219,8 @@ body{
     width: 640px;
 }
 .play-prompt{
-    height: 18px;
-    line-height: 15px;
+    height: 16px;
+    line-height: 14px;
     padding-left: 8px;
     padding-right: 8px;
     span{
@@ -229,14 +238,18 @@ body{
     @extend %cp;
     @extend %w100;
     @extend %pr;
-    background-color: #fff;
+    padding: 2px 0;
     height: 2px;
+}
+.play-bar{
+    height: 2px;
+    background-color: #fff;
 }
 .play-volume-con,
 .play-bar-con{
     @extend %h100;
     width: 0;
-    background-color: red;
+    background-color: #3290A4;
     transition: all 0.3s;
 }
 .play-volume-ctr,
@@ -246,7 +259,7 @@ body{
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background-color: red;
+    background-color: #13B9E5;
     top: 50%;
     margin-top: -4px;
     left: 0;
@@ -260,8 +273,10 @@ body{
 .play-mode-wrap{
     margin-left: 40px;
     margin-right: 27px;
+    width: 24px;
     &.play-mode-0{
-        background-color: red;
+        @extend %bcgicon;
+        background-position: -60px 0;
     }
     &.play-mode-1{
         background-color: #ffbb29;
@@ -275,17 +290,19 @@ body{
 }
 .play-volume-icon{
     @extend %fl;
-    background-color: red;
+    @extend %bcgicon;
     margin-right: 10px;
+    width: 24px;
+    background-position: -84px 0;
 }
 .play-volume-inner{
     @extend %cp;
     @extend %fl;
     @extend %pr;
     width: 120px;
+    padding: 2px 0;
     height: 2px;
-    margin-top: 9px;
-    background-color: #fff;
+    margin-top: 7px;
 }
 .player{
     @extend %pa;

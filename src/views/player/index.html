@@ -25,7 +25,7 @@
                             <div class="check-all-box" id="check-all">
                                 <div class="check-inner"></div>
                             </div>
-                            <span class="check-box-prompt">歌曲</span>
+                            <span class="check-box-prompt">全选</span>
                         </div>
                         <div class="list-item-part title-name">
                             <span id="list-delete">删除</span>
@@ -53,35 +53,45 @@
                 <h3 class="music-title" id="music-title"></h3>
                 <div class="music-words-wrap">
                     <div class="music-words-inner">
-                        <div class="music-words-con">
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                            <p>大塑料袋卡双排扣</p>
-                        </div>
+                        <ul class="music-words-con" id="#lrc_list">
+                            <li>大塑料袋卡双排扣</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <textarea id="lrc_content" name="textfield" cols="70" rows="10" style="display: none;">
+[00:03.00]洋葱
+[00:06.00]演唱：平安
+[00:09.00]
+[00:11.38]如果你眼神能够为我片刻的降临
+[00:21.23]如果你能听到心碎的声音
+[00:28.88]盘底的洋葱像我永远是配角戏
+[00:35.74]偷偷的看着你偷偷的隐藏着自己
+[00:43.48]
+[00:44.90]如果你愿意一层一层
+[00:48.46]一层的剥开我的心
+[00:52.66]你会发现你会讶异
+[00:56.40]你是我最压抑最深处的秘密
+[01:00.26]如果你愿意一层一层
+[01:03.69]一层的剥开我的心
+[01:07.76]你会鼻酸你会流泪
+[01:11.60]只要你能听到我看到我的全心全意
+[01:18.30]
+[01:19.11]如果你愿意一层一层
+[01:22.57]一层的剥开我的心
+[01:26.66]你会发现你会讶异
+[01:30.41]你是我最压抑最深处的秘密
+[01:34.48]如果你愿意一层一层
+[01:37.58]一层的剥开我的心
+[01:41.51]你会鼻酸你会流泪
+[01:45.15]只要你能听到我看到我的全心全意
+[01:53.55]
+[01:55.65]你会鼻酸你会流泪
+[01:59.84]只要你能听到我看到我的全心全意
+[02:12.57] www.w2bc.com
+                </textarea>
     <!--/主体-->
     <!--尾部-->
     <div class="footer-wrap">
@@ -98,18 +108,20 @@
                     <span class="play-music-time">——/——</span>
                 </div>
                 <div class="play-bar-inner">
-                    <div class="play-bar-con"></div>
-                    <div class="play-bar-ctr"></div>
+                    <div class="play-bar">
+                        <div class="play-bar-con"></div>
+                        <div class="play-bar-ctr"></div>
+                    </div>
                 </div>
             </div>
             <div class="play-mode-wrap play-mode-0 play-item play-icon" id="play-mode"></div>
             <div class="play-volume-wrap play-item">
                 <i class="play-volume-icon play-icon"></i>
                 <div class="play-volume-inner">
-                    <!--<div class="div">-->
+                    <div class="play-bar">
                         <div class="play-volume-con"></div>
                         <div class="play-volume-ctr"></div>
-                    <!--</div>-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,6 +129,7 @@
     <!--/尾部-->
     <script src="../lib/jquery.js"></script>
     <script src="../lib/jquery.jplayer.js"></script>
+    <script src="../lib/lrc.js"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.min.js"></script>-->
 </body>
 </html>

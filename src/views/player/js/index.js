@@ -27,7 +27,7 @@ $(function () {
                                 <div class="check-box">
                                     <div class="check-inner"></div>
                                 </div>
-                                <span class="check-box-prompt icon">播</span>
+                                <span class="check-box-prompt icon"></span>
                                 <span class="check-box-prompt index">${i + 1}</span>
                             </div>
                             <div class="list-item-part name">${item.title}</div>
@@ -36,8 +36,19 @@ $(function () {
                         </li>`;
             });
             this.$el_list.html(str);
+            this.innerLrc(index);
             return this;
         },
+
+        // 渲染歌词
+        innerLrc (index) {
+            let music = this.list[index];
+            if (music){
+                // let lrc =
+            }
+            return this;
+        },
+
         // 歌曲事件监听
         addMonitorEvent () {
             let that = this;
@@ -136,6 +147,7 @@ $(function () {
         }
     };
 
+    let time = '';
     // 音乐播放控制器
     const MusicPlayerController = {
         $el: $('#player-warp'),
@@ -157,6 +169,19 @@ $(function () {
                 },
                 supplied: 'mp3',
                 wmode: 'window',
+                timeupdate: function(event) {
+                    if (event.jPlayer.status.currentTime == 0) {
+                        time = "";
+                    } else {
+                        time = event.jPlayer.status.currentTime;
+                    }
+                },
+                play: function(event) {
+                    //点击开始方法调用lrc。start歌词方法 返回时间time
+                    $.lrc.start($('#lrc_content').val(), function() {
+                        return time;
+                    });
+                },
             };
             if (this.list.length) {
                 options.ready = function () {

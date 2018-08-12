@@ -9,8 +9,9 @@ $(function () {
             title: '1111111111',
             author: '啊哈',
             duration: 200,
-            file: '../media/880211.mp3',
+            file: 'http://yanshi.sucaihuo.com/jquery/0/76/demo/yangcong.mp3',
             src: 'http://www.owulia.com/static/temp/1.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '2',
@@ -19,6 +20,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/2.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '3',
@@ -27,6 +29,7 @@ $(function () {
             duration: 200,
             file: '../media/880211.mp3',
             src: 'http://www.owulia.com/static/temp/3.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '4',
@@ -35,6 +38,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '5',
@@ -43,6 +47,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '6',
@@ -51,6 +56,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '7',
@@ -59,6 +65,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '8',
@@ -67,6 +74,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '9',
@@ -75,6 +83,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
         {
             id: '0',
@@ -83,6 +92,7 @@ $(function () {
             duration: 200,
             file: 'http://oj4t8z2d5.bkt.clouddn.com/%E9%AD%94%E9%AC%BC%E4%B8%AD%E7%9A%84%E5%A4%A9%E4%BD%BF.mp3',
             src: 'http://www.owulia.com/static/temp/4.jpg',
+            lrc: '../media/1.lrc',
         },
     ];
 
@@ -115,7 +125,7 @@ $(function () {
         },
         addMusic(music) {
             let index = this.findMusic(music);
-            if(!index){
+            if(index === -1){
                 this.list.push(music);
                 this.saveList();
                 window.location.href = window.location.origin + this.href;
@@ -130,11 +140,11 @@ $(function () {
             let cur_index = Store.findFirstIndexForArr(this.list, (item, index) => {
                 return (item.id === music.id);
             });
-            return cur_index === -1 ? null : cur_index;
+            return cur_index;
         },
         removeMusic(music) {
             let index = this.findMusic(music);
-            index && this.list.splice(index, 1);
+            index !== -1 && this.list.splice(index, 1);
             this.saveList();
             return this;
         },
