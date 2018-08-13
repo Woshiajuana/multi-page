@@ -204,10 +204,11 @@ $(function () {
                 this.$el_play.addClass('play').removeClass('pause');
             } else {
                 $('#lrc_list').html('');
+                $.lrc.stop();
                 this.$el_player.jPlayer('stop');
                 this.$el_title.text('');
                 $('.play-music-time').text('——/——');
-                this.$el_play.removeClass('pause').addClass('play');
+                this.$el_play.addClass('pause').removeClass('play');
             }
             return this;
         },
@@ -233,8 +234,11 @@ $(function () {
             this.$el.on('click', '#play-ctr', function (e) {
                 that.handlePlayOrPause($(this));
             }).on('click', '.play-bar-inner', function (e) {
-                let progress = that.handleProgress(this, e);
-                $('#player').jPlayer('play', that.list[that.index].duration * progress);
+                if (that.list[that.index]){
+                    let progress = that.handleProgress(this, e);
+                    $('#player').jPlayer('play', that.list[that.index].duration * progress);
+                    that.$el_play.addClass('play').removeClass('pause');
+                }
             }).on('click', '.play-volume-inner', function (e) {
                 let progress = that.handleProgress(this, e);
                 $('#player').jPlayer('volume', progress);
@@ -275,6 +279,8 @@ $(function () {
                 this.list[this.index].duration = Math.round(e.jPlayer.status.duration);
                 let music_time = formatTime(time) + '/' + formatTime(this.list[this.index].duration);
                 $('.play-music-time').text(music_time);
+            } else {
+                this.$el_play.addClass('pause').removeClass('play');
             }
         },
         // 下一首 上一首
@@ -315,7 +321,7 @@ $(function () {
         // 暂停
         handlePlayOrPause(el) {
             if (this.list.length === 0) {
-                el.removeClass('pause').addClass('play');
+                el.removeClass('play').addClass('pause');
                 return;
             }
             if (el.hasClass('play')){
@@ -365,9 +371,12 @@ $(function () {
         restart(){
             let arr = this.getList();
             let music = MusicPlayerController.getCurMusic();
-            let index = Store.findFirstIndexForArr(arr, (item) => {
-                return item.id === music.id;
-            });
+            let index = -1;
+            if (music) {
+                index= Store.findFirstIndexForArr(arr, (item) => {
+                    return item.id === music.id;
+                });
+            }
             MusicPlayerController.setList(arr);
             if (index === -1){
                 MusicListController.innerHTML(arr, 0);

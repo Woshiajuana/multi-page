@@ -101,7 +101,6 @@ $(function () {
         el: 'li',
         total: [],
         list: [],
-        href: '/dist/view/player',
         init (total, list) {
             this.total = total;
             this.getList(list);
@@ -131,7 +130,7 @@ $(function () {
             this.saveList();
             if (!Store.dataToLocalStorageOperate.achieve('IS_OPEN')) {
                 Store.dataToLocalStorageOperate.save('IS_OPEN',true);
-                window.open(window.location.origin + this.href);
+                window.open('player.html');
             }
             return this;
         },

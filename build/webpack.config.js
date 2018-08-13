@@ -37,7 +37,7 @@ const config = {
     entry: entry,
     output: {
         filename: 'js/[name].js',
-        path: path.join(__dirname, '../dist')
+        path: path.join(__dirname, '../player')
     },
     module: {
         rules: [
@@ -66,7 +66,7 @@ const config = {
                     loader: 'url-loader',
                     options: {
                         limit: '1024',
-                        publicPath: '/dist/',
+                        publicPath: '/player/',
                         name: 'images/[name].[hash:7].[ext]'
                     }
                 }],

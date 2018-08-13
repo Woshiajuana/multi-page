@@ -378,10 +378,11 @@ $(function () {
                 this.$el_play.addClass('play').removeClass('pause');
             } else {
                 $('#lrc_list').html('');
+                $.lrc.stop();
                 this.$el_player.jPlayer('stop');
                 this.$el_title.text('');
                 $('.play-music-time').text('——/——');
-                this.$el_play.removeClass('pause').addClass('play');
+                this.$el_play.addClass('pause').removeClass('play');
             }
             return this;
         },
@@ -407,8 +408,11 @@ $(function () {
             this.$el.on('click', '#play-ctr', function (e) {
                 that.handlePlayOrPause($(this));
             }).on('click', '.play-bar-inner', function (e) {
-                var progress = that.handleProgress(this, e);
-                $('#player').jPlayer('play', that.list[that.index].duration * progress);
+                if (that.list[that.index]) {
+                    var progress = that.handleProgress(this, e);
+                    $('#player').jPlayer('play', that.list[that.index].duration * progress);
+                    that.$el_play.addClass('play').removeClass('pause');
+                }
             }).on('click', '.play-volume-inner', function (e) {
                 var progress = that.handleProgress(this, e);
                 $('#player').jPlayer('volume', progress);
@@ -448,6 +452,8 @@ $(function () {
                 this.list[this.index].duration = Math.round(e.jPlayer.status.duration);
                 var music_time = formatTime(time) + '/' + formatTime(this.list[this.index].duration);
                 $('.play-music-time').text(music_time);
+            } else {
+                this.$el_play.addClass('pause').removeClass('play');
             }
         },
 
@@ -490,7 +496,7 @@ $(function () {
         // 暂停
         handlePlayOrPause: function handlePlayOrPause(el) {
             if (this.list.length === 0) {
-                el.removeClass('pause').addClass('play');
+                el.removeClass('play').addClass('pause');
                 return;
             }
             if (el.hasClass('play')) {
@@ -543,9 +549,12 @@ $(function () {
         restart: function restart() {
             var arr = this.getList();
             var music = MusicPlayerController.getCurMusic();
-            var index = _store2.default.findFirstIndexForArr(arr, function (item) {
-                return item.id === music.id;
-            });
+            var index = -1;
+            if (music) {
+                index = _store2.default.findFirstIndexForArr(arr, function (item) {
+                    return item.id === music.id;
+                });
+            }
             MusicPlayerController.setList(arr);
             if (index === -1) {
                 MusicListController.innerHTML(arr, 0);
