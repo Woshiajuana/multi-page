@@ -168,11 +168,11 @@ $(function () {
                 supplied: 'mp3',
                 wmode: 'window',
             };
-            if (this.list.length) {
-                options.ready = function () {
-                    that.play(that.index);
-                }
-            }
+            // if (this.list.length) {
+            //     options.ready = function () {
+            //         that.play(that.index);
+            //     }
+            // }
             $('#player').jPlayer(options);
             return this;
         },
@@ -360,7 +360,7 @@ $(function () {
         start () {
             let arr = this.getList();
             MusicListController.init(arr, 0);
-            MusicPlayerController.init(arr, 0);
+            MusicPlayerController.init(arr, 0).play(0);
         },
         restart(){
             let arr = this.getList();
