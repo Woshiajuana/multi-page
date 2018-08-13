@@ -95,7 +95,7 @@ textarea {
 .list-item .index {
   display: inline-block; }
 
-.check-all-box.active .check-inner,
+.user-head img, .check-all-box.active .check-inner,
 .check-box.active .check-inner {
   display: block; }
 
@@ -104,22 +104,22 @@ textarea {
 .list-item .icon, .list-item-part.title-name span, .check-inner, .music-pic-image {
   display: none; }
 
-.session, .body-wrap, .list-item-title,
+.session, .user-info, .body-wrap, .list-item-title,
 .list-item, .footer-inner, .play-ctr-wrap {
   zoom: 1; }
 
-.session:after, .body-wrap:after, .list-item-title:after,
+.session:after, .user-info:after, .body-wrap:after, .list-item-title:after,
 .list-item:after, .footer-inner:after, .play-ctr-wrap:after {
   content: ' ';
   display: block;
   height: 0;
   clear: both; }
 
-.left, .list-item-part, .check-all-box,
+.logo, .user-head, .left, .list-item-part, .check-all-box,
 .check-box, .play-item, .play-ctr-item, .play-music-title, .play-volume-icon, .play-volume-inner {
   float: left; }
 
-.play-music-time {
+.user-info, .play-music-time {
   float: right; }
 
 .music-words-inner {
@@ -132,12 +132,12 @@ textarea {
 .music-title {
   font-weight: normal; }
 
-.list-item-part.title-name span, .list-item-part.name, .check-all-box,
+.user-text, .list-item-part.title-name span, .list-item-part.name, .check-all-box,
 .check-box, .play-bar-inner, .play-volume-ctr,
 .play-bar-ctr, .play-icon, .play-volume-inner {
   cursor: pointer; }
 
-.list-item-part, .music-title,
+.user-info span, .list-item-part, .music-title,
 .music-words-wrap, .music-title p,
 .music-words-wrap p {
   color: #fff; }
@@ -147,7 +147,11 @@ textarea {
   background: url(/player/images/player-icon.b50ec6c.png) no-repeat; }
 
 body {
-  background: url(/player/images/music-player-bg.1c39885.jpg) no-repeat center top; }
+  background: url(/player/images/music-player-bg.1c39885.jpg) no-repeat center top;
+  background-attachment: fixed; }
+
+.header-wrap {
+  height: 78px; }
 
 .session {
   width: 1280px;
@@ -157,6 +161,26 @@ body {
   width: 160px;
   height: 78px;
   background: url(/player/images/player-logo.4e8b523.png) no-repeat; }
+
+.user-info {
+  padding-top: 13px;
+  height: 34px; }
+  .user-info span {
+    line-height: 34px; }
+
+.user-head {
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  background-color: #fff;
+  border-radius: 50%; }
+  .user-head img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; }
+
+.user-name {
+  margin: 0 10px 0 10px; }
 
 .body-wrap {
   padding-bottom: 120px; }

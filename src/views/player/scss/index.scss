@@ -5,9 +5,10 @@
 }
 body{
     background: url(../../../assets/images/music-player-bg.jpg) no-repeat center top;
+    background-attachment: fixed;
 }
 .header-wrap{
-
+    height: 78px;
 }
 .session{
     @extend %clearfix;
@@ -15,11 +16,44 @@ body{
     margin: 0 auto;
 }
 .logo{
+    @extend %fl;
     width: 160px;
     height: 78px;
     background: url(../../../assets/images/player-logo.png) no-repeat;
 }
-
+.user-info{
+    @extend %clearfix;
+    @extend %fr;
+    padding-top: 13px;
+    height: 34px;
+    span{
+        @extend %cfff;
+        line-height: 34px;
+    }
+}
+.user-head{
+    @extend %fl;
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    img{
+        @extend %db;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+}
+//.user-prompt{
+//    margin-top: 10px;
+//}
+.user-name{
+    margin: 0 10px 0 10px;
+}
+.user-text{
+    @extend %cp;
+}
 .body-wrap{
     @extend %clearfix;
     padding-bottom: 120px;
