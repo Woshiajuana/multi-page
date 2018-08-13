@@ -199,11 +199,11 @@ body{
         background-position: 0 0;
     }
     &.play{
-        @extend %bcgicon;
-        background-position: -20px 0;
+        background: url(../../../assets/images/player-pause-icon.png) no-repeat;
     }
     &.pause{
-        background-color: #ffbb29;
+        @extend %bcgicon;
+        background-position: -20px 0;
     }
     &.down{
         @extend %bcgicon;
@@ -269,16 +269,17 @@ body{
 .play-mode-wrap{
     margin-left: 40px;
     margin-right: 27px;
-    width: 24px;
     &.play-mode-0{
-        @extend %bcgicon;
-        background-position: -60px 0;
+        background: url(../../../assets/images/mode-0.png) no-repeat;
+        background-size: 100%;
     }
     &.play-mode-1{
-        background-color: #ffbb29;
+        background: url(../../../assets/images/mode-1.png) no-repeat;
+        background-size: 100%;
     }
     &.play-mode-2{
-        background-color: #3278ff;
+        background: url(../../../assets/images/mode-2.png) no-repeat;
+        background-size: 100%;
     }
 }
 .play-volume-wrap{
