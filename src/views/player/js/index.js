@@ -216,16 +216,28 @@ $(function () {
         lrcStart (music) {
             let that = this;
             if(music.lrc) {
-                $.get(music.lrc,function(data,status){
+                $.get(music.lrc + '?t=' + new Date().getTime(),function(data,status){
                     if(status !== 'success') {
-                        return $('#lrc_list').html(' <p>获取歌词失败</p>');
+                        $('.jspPane').html(' <p>获取歌词失败</p>')
+                        var refreshApi = that.lrc_list.data("jsp");
+                        //重新加载刷新滚动条
+                        refreshApi.reinitialise({
+                            autoReinitialise: false,
+                        });
+                        return ;
                     } else {
                         that.lrcInner(data)
                     }
                 });
             } else  {
-                $('#lrc_list').html(' <p>暂无歌词</p>')
+                $('.jspPane').html(' <p>暂无歌词</p>')
+                var refreshApi = this.lrc_list.data("jsp");
+                //重新加载刷新滚动条
+                refreshApi.reinitialise({
+                    autoReinitialise: false,
+                });
             }
+
         },
 
         lrcInner(txt) {
