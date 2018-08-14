@@ -373,3 +373,6 @@ body {
 .jspVerticalBar,
 .jspTrack {
   background-color: transparent; }
+
+.jspScrollable {
+  outline: none; }

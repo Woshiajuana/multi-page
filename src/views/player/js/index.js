@@ -173,6 +173,9 @@ $(function () {
             //     }
             // }
             $('#player').jPlayer(options);
+            this.lrc_list = $('#lrc_list').jScrollPane({
+                autoReinitialise: false,
+            });
             return this;
         },
         setList(list) {
@@ -215,13 +218,13 @@ $(function () {
             if(music.lrc) {
                 $.get(music.lrc,function(data,status){
                     if(status !== 'success') {
-                        return $('#lrc_list').html(' <li>获取歌词失败</li>');
+                        return $('#lrc_list').html(' <p>获取歌词失败</p>');
                     } else {
                         that.lrcInner(data)
                     }
                 });
             } else  {
-                $('#lrc_list').html(' <li>暂无歌词</li>')
+                $('#lrc_list').html(' <p>暂无歌词</p>')
             }
         },
 
@@ -240,13 +243,14 @@ $(function () {
                 list.forEach((item, index) => {
                     html += `<p>${item}</p>`
                 });
-                $('#lrc_list').html(html);
-                setTimeout(() => {
-                    console.log(22)
-                    $('#lrc_list').jScrollPane();
-                },1000)
+                $('.jspPane').html(html);
+                var refreshApi = this.lrc_list.data("jsp");
+                //重新加载刷新滚动条
+                refreshApi.reinitialise({
+                    autoReinitialise: false,
+                });
             } catch (e) {
-                $('#lrc_list').html(' <li>解析歌词失败</li>')
+                $('#lrc_list').html(' <p>解析歌词失败</p>')
             }
         },
 
