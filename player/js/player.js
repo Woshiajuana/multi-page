@@ -394,7 +394,7 @@ $(function () {
                         return $('#lrc_list').html(' <li>获取歌词失败</li>');
                     } else {
                         $.lrc.start(data, function () {
-                            return lrc_time;
+                            return 0;
                         });
                     }
                 });

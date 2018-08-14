@@ -137,18 +137,18 @@ textarea {
 .play-bar-ctr, .play-icon, .play-volume-inner {
   cursor: pointer; }
 
-.user-info span, .list-item-part, .music-title,
+.user-info, .user-info span, .list-item-part, .music-title,
 .music-words-wrap, .music-title p,
 .music-words-wrap p {
   color: #fff; }
 
-.list-item-title.active .icon,
-.list-item.active .icon, .play-ctr-item.up, .play-ctr-item.pause, .play-ctr-item.down, .play-volume-icon {
+.play-ctr-item.up, .play-ctr-item.pause, .play-ctr-item.down, .play-volume-icon {
   background: url(/player/images/player-icon.b50ec6c.png) no-repeat; }
 
 body {
   background: url(/player/images/music-player-bg.1c39885.jpg) no-repeat center top;
-  background-attachment: fixed; }
+  background-attachment: fixed;
+  min-width: 1280px; }
 
 .header-wrap {
   height: 78px; }
@@ -194,9 +194,9 @@ body {
 
 .list-item-title.active .icon,
 .list-item.active .icon {
+  background: url(data:image/gif;base64,R0lGODlhCgAKAIABAP///////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBAABACwAAAAACgAKAAACEIyPqcsM4GB4iM4nLc5c8wIAIfkECQQAAQAsAAAAAAoACgAAAhGMj6mrAOxMPNPVFyy+V1rvFQAh+QQJBAABACwAAAAACgAKAAACE4yPqQew0UxkDrY6L96Zb3mBYAEAIfkECQQAAQAsAAAAAAoACgAAAhSMjwiQt/YcCyvaCmfV/GZPYWFWAAAh+QQJBAABACwAAAAACgAKAAACFIyPeQDIxl6QsU1bIY5a0/15m1YAACH5BAkEAAEALAAAAAAKAAoAAAIUjI+ZAMpsYHhtVhrvy1n6bXVaVgAAIfkECQQAAQAsAAAAAAoACgAAAhOMjwCYy6aeioFOZyfEuvK8gV4BACH5BAkEAAEALAAAAAAKAAoAAAISjI+ZAGrsAlysSVuxnry+rX0FACH5BAkEAAEALAAAAAAKAAoAAAIRjI+pawDs4EsuBlsnrk3z6xUAIfkECQQAAQAsAAAAAAoACgAAAhCMj6nLCMBehOnJcC3N1vACACH5BAkEAAEALAAAAAAKAAoAAAIPjI+py50AGJTxwTrDxbwAACH5BAkEAAEALAAAAAAKAAoAAAIPjI+py+0JAIuGHoujDLkAACH5BAkEAAEALAAAAAAKAAoAAAIQjI+py+0NAIqGhmgzrvKCAgAh+QQJBAABACwAAAAACgAKAAACD4yPqcvdABg081R4Y8A6FwA7LyogIHx4R3YwMHxkNDJiOTgyYzhjM2YwYWExNzcxNDk4OTU2ZjY3ODc0MSAqLw==) no-repeat;
   width: 10px;
-  height: 7px;
-  background-position: -110px 0; }
+  height: 10px; }
 
 .music-list .list-item:nth-child(odd) {
   background-color: rgba(0, 0, 0, 0.05); }
@@ -267,8 +267,6 @@ body {
 .music-words-con {
   right: -20px;
   overflow-y: auto; }
-  .music-words-con li.hover {
-    color: red; }
 
 .footer-wrap {
   bottom: 0;
