@@ -317,7 +317,6 @@ $(function () {
         }
     };
 
-    var lrc_time = 0;
     // 音乐播放控制器
     var MusicPlayerController = {
         $el: $('#player-warp'),
@@ -378,7 +377,6 @@ $(function () {
                 this.$el_play.addClass('play').removeClass('pause');
             } else {
                 $('#lrc_list').html('');
-                $.lrc.stop();
                 this.$el_player.jPlayer('stop');
                 this.$el_title.text('');
                 $('.play-music-time').text('——/——');
@@ -387,20 +385,44 @@ $(function () {
             return this;
         },
         lrcStart: function lrcStart(music) {
+            var that = this;
             if (music.lrc) {
                 $.get(music.lrc, function (data, status) {
                     if (status !== 'success') {
-                        $.lrc.stop();
                         return $('#lrc_list').html(' <li>获取歌词失败</li>');
                     } else {
-                        $.lrc.start(data, function () {
-                            return 0;
-                        });
+                        that.lrcInner(data);
                     }
                 });
             } else {
-                $.lrc.stop();
                 $('#lrc_list').html(' <li>暂无歌词</li>');
+            }
+        },
+        lrcInner: function lrcInner(txt) {
+            if (typeof txt !== 'string' || txt.length < 1) return;
+            console.log(11);
+            try {
+                var item = null,
+                    item_time = null,
+                    html = '',
+                    list = [];
+                /* 分析歌词的时间轴和内容 */
+                txt = txt.split("\n");
+                for (var i = 0; i < txt.length; i++) {
+                    item = txt[i].replace(/^\s+|\s+$/, '');
+                    if (item.length < 1 || !(item = /^[^\[]*((?:\s*\[\d+\:\d+(?:\.\d+)?\])+)([\s\S]*)$/.exec(item))) continue;
+                    list.push(item[2]);
+                }
+                list.forEach(function (item, index) {
+                    html += '<p>' + item + '</p>';
+                });
+                $('#lrc_list').html(html);
+                setTimeout(function () {
+                    console.log(22);
+                    $('#lrc_list').jScrollPane();
+                }, 1000);
+            } catch (e) {
+                $('#lrc_list').html(' <li>解析歌词失败</li>');
             }
         },
         addMonitorEvent: function addMonitorEvent() {
@@ -428,7 +450,6 @@ $(function () {
             });
             this.$el_player.bind($.jPlayer.event.timeupdate, function (e) {
                 that.handlePlaying(e);
-                lrc_time = e.jPlayer.status.currentTime;
             });
             return this;
         },
@@ -489,7 +510,6 @@ $(function () {
                     }
                     break;
             }
-            console.log(next_index);
             this.play(next_index);
         },
 
