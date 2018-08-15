@@ -601,9 +601,11 @@ $(function () {
         },
         addMonitorEvent: function addMonitorEvent() {
             var that = this;
-            window.addEventListener('storage', function () {
-                that.restart();
-                MusicPlayerController.play(0);
+            window.addEventListener('storage', function (e) {
+                if (e.key === 'MUSIC_LIST') {
+                    that.restart();
+                    MusicPlayerController.play(0);
+                }
             });
         }
     };
