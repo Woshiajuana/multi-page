@@ -29,7 +29,7 @@ module.exports = {
 
     // 出口文件
     output: {
-        filename: 'assets/js/[name].[hash:10].js',
+        filename: 'assets/js/[name].[contenthash:10].js',
         path: resolve(__dirname, '../dist'),
     },
 
@@ -87,15 +87,15 @@ module.exports = {
                     outputPath: 'assets/images',
                 },
             },
-            // 其他文件
-            {
-                exclude: /\.(css|scss|sass|js|html|png|jpe?g|gif)/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[hash:4].[ext]',
-                    outputPath: 'assets/media',
-                },
-            },
+            // // 其他文件
+            // {
+            //     exclude: /\.(css|scss|sass|js|html|png|jpe?g|gif)/,
+            //     loader: 'file-loader',
+            //     options: {
+            //         name: '[name].[hash:4].[ext]',
+            //         outputPath: 'assets/media',
+            //     },
+            // },
         ],
     },
 
