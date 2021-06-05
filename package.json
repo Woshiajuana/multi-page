@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config build/webpack.hot.config.js",
+    "dev": "webpack --config build/webpack.dev.config.js",
     "build": "webpack --config build/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,12 +24,17 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.0",
     "core-js": "^3.14.0",
     "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
     "node-dir": "^0.1.17",
     "node-sass": "^6.0.0",
+    "postcss-loader": "^5.3.0",
+    "postcss-preset-env": "^6.7.0",
     "sass-loader": "^12.0.0",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
@@ -36,5 +42,13 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
-  }
+  },
+    "browserslist": [
+        "defaults",
+        "not ie <= 8",
+        "last 2 versions",
+        "> 1%",
+        "iOS 7",
+        "last 3 iOS versions"
+    ]
 }
