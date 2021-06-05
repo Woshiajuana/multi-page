@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config build/webpack.hot.config.js",
-    "dev": "webpack --config build/webpack.dev.config.js",
-    "build": "webpack --config build/webpack.prod.config.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.hot.config.js",
+    "dev": "cross-env NODE_ENV=development webpack --config build/webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.0",
     "core-js": "^3.14.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
@@ -43,12 +44,12 @@
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
   },
-    "browserslist": [
-        "defaults",
-        "not ie <= 8",
-        "last 2 versions",
-        "> 1%",
-        "iOS 7",
-        "last 3 iOS versions"
-    ]
+  "browserslist": [
+    "defaults",
+    "not ie <= 8",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
 }

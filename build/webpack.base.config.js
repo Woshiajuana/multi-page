@@ -3,7 +3,6 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { generateEntry } = require('./utils');
 
-
 // 生成入口文件
 const entry = generateEntry(resolve(__dirname, '../src/pages'));
 
@@ -22,7 +21,12 @@ const htmlWebpackPlugins = (entry => {
     }));
 })(entry);
 
+console.log('process.env.NODE_ENV => ', process.env.NODE_ENV);
+
 module.exports = {
+
+    // target 配置
+    target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
 
     // 入口文件
     entry,
