@@ -50,11 +50,11 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
             },
-            // html
-            {
-                test: /\.html$/,
-                exclude: /node_modules/,
-            },
+            // // html
+            // {
+            //     test: /\.html$/,
+            //     exclude: /node_modules/,
+            // },
             // 图片
             {
                 test: /\.(png|jpe?g|gif)$/,
