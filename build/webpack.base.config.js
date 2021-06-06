@@ -21,8 +21,6 @@ const htmlWebpackPlugins = (entry => {
     }));
 })(entry);
 
-console.log('process.env.NODE_ENV => ', process.env.NODE_ENV);
-
 module.exports = {
 
     // target 配置
@@ -35,6 +33,7 @@ module.exports = {
     output: {
         filename: 'assets/js/[name].[contenthash:10].js',
         path: resolve(__dirname, '../dist'),
+        // publicPath: '../../'
     },
 
     // 替换路径配置
@@ -74,10 +73,16 @@ module.exports = {
                     ],
                 }
             },
-            // // html
+            // html
             // {
             //     test: /\.html$/,
             //     exclude: /node_modules/,
+            //     loader: 'html-loader',
+            //     options: {
+            //         // attributes: [ 'img:src', 'audio:src' ],
+            //         // minimize: true,
+            //         // esModule: false,
+            //     }
             // },
             // 图片
             {
