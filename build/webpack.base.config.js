@@ -1,10 +1,10 @@
 
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { generateEntry } = require('./utils');
+const { generateEntryByPath } = require('./utils');
 
 // 生成入口文件
-const entry = generateEntry(resolve(__dirname, '../src/pages'));
+const entry = generateEntryByPath(resolve(__dirname, '../src/pages'));
 
 // 生成多入口模板 Html 文件插件
 const htmlWebpackPlugins = (entry => {

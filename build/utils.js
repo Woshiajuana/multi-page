@@ -1,15 +1,9 @@
 
 const path = require('path');
-
 const nodeDir = require('node-dir');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-/**
- * 遍历文件目录
- * @param directory {String}
- * @param recursive {Boolean}
- * @param regExp {RegExp}
- * @return {Array}
- * */
+// 遍历文件目录
 function requireFile (directory = '', recursive, regExp) {
     if (directory[0] === '.') {
         // Relative path
@@ -28,13 +22,8 @@ function requireFile (directory = '', recursive, regExp) {
         });
 }
 
-
-/**
- * 生成入口
- * @param directory {String}
- * @return {Object}
- * */
-function generateEntry (directory) {
+// 生成入口
+function generateEntryByPath (directory) {
     let entry = {};
     requireFile(
         directory,
@@ -51,7 +40,23 @@ function generateEntry (directory) {
     return entry;
 }
 
+// 生成多入口模板 Html 文件插件
+function generateHtmlWebpackPluginsByEntry (entry) {
+    return Object.keys(entry).map(key => new HtmlWebpackPlugin({
+        filename: `${key}.html`,
+        template: entry[key].replace('index.js', 'index.html'),
+        minify: {
+            removeAttributeQuotes: false, // 移除属性的引号
+            removeComments: false, // 移除注释
+            collapseWhitespace: false, // 折叠空白区域
+        },
+        chunks: [key],
+        inject: true,
+    }));
+}
+
 module.exports = {
     requireFile,
-    generateEntry,
+    generateEntryByPath,
+    generateHtmlWebpackPluginsByEntry,
 };
