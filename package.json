@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
+    "art-template": "^4.13.2",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.0",
@@ -47,7 +48,7 @@
   },
   "browserslist": [
     "defaults",
-    "ie >= 9",
+    "ie <= 8",
     "last 2 versions",
     "> 1%",
     "iOS 7",

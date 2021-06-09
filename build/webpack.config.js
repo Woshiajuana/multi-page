@@ -3,6 +3,7 @@ const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const resolveFilename = require('art-template/lib/compile/adapter/resolve-filename');
 
 const {
     resolve,
@@ -65,6 +66,22 @@ let webpackConfig = {
                 options: {
                     esModule: false,
                 },
+            },
+            // art html
+            {
+                test: /\.art$/,
+                exclude: /node_modules/,
+                loader: resolve('build/art-template-loader'),
+                options: {
+                    resolveFilename (path, context) {
+                        /^src/.test(path) && (path = path.replace(/^src/, resolve('src')));
+                        return resolveFilename(path, context);
+                    },
+                    // 扩展出来，排除一些不需要的 js 资源引入
+                    exclude: [
+                        /flexible.js$/,
+                    ],
+                }
             },
             // 图片
             {

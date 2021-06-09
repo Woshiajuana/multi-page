@@ -1,5 +1,6 @@
 
 const path = require('path');
+const fs = require('fs');
 const nodeDir = require('node-dir');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { assetsSubDirectory } = require('./config');
@@ -44,17 +45,23 @@ function generateEntryByPath (directory) {
 }
 
 function generateHtmlWebpackPluginsByEntry (entry) {
-    return Object.keys(entry).map(key => new HtmlWebpackPlugin({
-        filename: `${key}.html`,
-        template: entry[key].replace('index.js', 'index.html'),
-        minify: {
-            removeAttributeQuotes: false, // 移除属性的引号
-            removeComments: false, // 移除注释
-            collapseWhitespace: false, // 折叠空白区域
-        },
-        chunks: [key],
-        inject: true,
-    }));
+    return Object.keys(entry).map(key => {
+        let template = entry[key].replace('index.js', 'html.js');
+        if (!fs.existsSync(template)) {
+            template = entry[key].replace('index.js', 'index.html')
+        }
+        return new HtmlWebpackPlugin({
+            filename: `${key}.html`,
+            template,
+            minify: {
+                removeAttributeQuotes: false, // 移除属性的引号
+                removeComments: false, // 移除注释
+                collapseWhitespace: false, // 折叠空白区域
+            },
+            chunks: [key],
+            inject: true,
+        });
+    });
 }
 
 module.exports = {

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1 id="title">welcome1</h1>
+<h1 id="title">{{title}}</h1>
 
 <section>
     <h2>img 引入本地图片</h2>
