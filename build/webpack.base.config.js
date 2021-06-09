@@ -74,16 +74,14 @@ module.exports = {
                 }
             },
             // html
-            // {
-            //     test: /\.html$/,
-            //     exclude: /node_modules/,
-            //     loader: 'html-loader',
-            //     options: {
-            //         // attributes: [ 'img:src', 'audio:src' ],
-            //         // minimize: true,
-            //         // esModule: false,
-            //     }
-            // },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: 'html-loader',
+                options: {
+                    esModule: false,
+                }
+            },
             // 图片
             {
                 test: /\.(png|jpe?g|gif)$/,
