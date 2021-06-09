@@ -3,7 +3,11 @@ const path = require('path');
 const nodeDir = require('node-dir');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// 遍历文件目录
+
+const isEnvProduction = process.env.NODE_ENV === 'production';
+
+const resolve = dir => path.join(__dirname, '..', dir);
+
 function requireFile (directory = '', recursive, regExp) {
     if (directory[0] === '.') {
         // Relative path
@@ -22,7 +26,6 @@ function requireFile (directory = '', recursive, regExp) {
         });
 }
 
-// 生成入口
 function generateEntryByPath (directory) {
     let entry = {};
     requireFile(
@@ -40,7 +43,6 @@ function generateEntryByPath (directory) {
     return entry;
 }
 
-// 生成多入口模板 Html 文件插件
 function generateHtmlWebpackPluginsByEntry (entry) {
     return Object.keys(entry).map(key => new HtmlWebpackPlugin({
         filename: `${key}.html`,
@@ -56,6 +58,8 @@ function generateHtmlWebpackPluginsByEntry (entry) {
 }
 
 module.exports = {
+    isEnvProduction,
+    resolve,
     requireFile,
     generateEntryByPath,
     generateHtmlWebpackPluginsByEntry,
