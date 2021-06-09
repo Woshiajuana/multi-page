@@ -16,6 +16,7 @@ body{
     @extend %df1;
     @extend %df;
     @extend %w100;
+    @extend %h100;
 }
 .menu-section{
     @extend %h100;
@@ -24,4 +25,10 @@ body{
 .main-inner{
     @extend %df1;
     @extend %h100;
+    overflow-y: auto;
+    iframe{
+        @extend %w100;
+        @extend %h100;
+        overflow-y: auto;
+    }
 }

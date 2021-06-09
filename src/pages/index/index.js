@@ -13,7 +13,9 @@ const ViewPage = () => {
             <NavBar/>
             <div className="main-wrap">
                 <MenuSection/>
-                <div className="main-inner"/>
+                <div className="main-inner">
+                    <iframe src="https://www.baidu.com"/>
+                </div>
             </div>
         </Fragment>
     );

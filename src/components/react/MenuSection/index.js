@@ -6,7 +6,7 @@ import {
     CalendarOutlined,
     AppstoreOutlined,
     SettingOutlined,
-    LinkOutlined,
+    // LinkOutlined,
 } from '@ant-design/icons'
 
 const { SubMenu } = Menu;
@@ -16,8 +16,8 @@ export default function MenuSection() {
         <Menu
             className="menu-section"
             style={{ width: 256 }}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={['2']}
+            defaultOpenKeys={['sub2', 'sub1']}
             mode="inline"
             theme="light"
         >
