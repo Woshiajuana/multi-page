@@ -1,0 +1,10 @@
+
+{{extend 'src/layouts/layout.art'}}
+
+{{block 'title'}}登录 | SillyPutty{{/block}}
+
+{{block 'content'}}
+
+<d>111</d>
+
+{{/block}}
