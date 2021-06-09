@@ -4,11 +4,9 @@ const nodeDir = require('node-dir');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { assetsSubDirectory } = require('./config');
 
-const isEnvProduction = process.env.NODE_ENV === 'production';
-
 const resolve = dir => path.join(__dirname, '..', dir);
 
-const parseAssetsPath = path => path.posix.join(assetsSubDirectory, path);
+const parseAssetsPath = _path => path.posix.join(assetsSubDirectory, _path);
 
 function requireFile (directory = '', recursive, regExp) {
     if (directory[0] === '.') {
@@ -60,7 +58,6 @@ function generateHtmlWebpackPluginsByEntry (entry) {
 }
 
 module.exports = {
-    isEnvProduction,
     resolve,
     parseAssetsPath,
     requireFile,

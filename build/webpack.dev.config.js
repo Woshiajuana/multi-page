@@ -1,9 +1,10 @@
 
-const { resolve } = require('path');
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { resolve, parseAssetsPath } = require('./utils');
+const { assetsPublicPath } = require('./config');
 
 // 基础配置
 const webpackBaseConfig = require('./webpack.base.config');
@@ -23,9 +24,7 @@ module.exports = merge(webpackBaseConfig, {
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: '../',
-                        },
+                        options: assetsPublicPath.startsWith('.') ? { publicPath: '../../' } : {},
                     },
                     'css-loader',
                     {
@@ -49,9 +48,7 @@ module.exports = merge(webpackBaseConfig, {
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: '../../',
-                        },
+                        options: assetsPublicPath.startsWith('.') ? { publicPath: '../../' } : {},
                     },
                     'css-loader',
                     {
@@ -76,15 +73,15 @@ module.exports = merge(webpackBaseConfig, {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'assets/css/[name].[contenthash:8].css',
+            filename: parseAssetsPath('css/[name].[contenthash:8].css'),
         }),
         new CopyWebpackPlugin({
             patterns: [
                 {
                     // 定义要拷贝的源目录
-                    from: resolve(__dirname, '../public'),
+                    from: resolve('public'),
                     // 定义要拷贝到的目标目录
-                    to: resolve(__dirname, '../dist'),
+                    to: resolve('dist'),
                 },
             ],
         }),

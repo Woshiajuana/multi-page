@@ -1,15 +1,16 @@
 
 const {
     resolve,
-    isEnvProduction,
     generateEntryByPath,
     parseAssetsPath,
     generateHtmlWebpackPluginsByEntry,
 } = require('./utils');
 
 const {
+    isEnvProduction,
     entryRoot,
     assetsRoot,
+    assetsPublicPath,
 } = require('./config');
 
 const entry = generateEntryByPath(entryRoot);
@@ -28,7 +29,8 @@ module.exports = {
     // 出口
     output: {
         path: assetsRoot,
-        filename: `[name].[contenthash:8].js`,
+        filename: parseAssetsPath('js/[name].[contenthash:8].js'),
+        publicPath: assetsPublicPath,
     },
 
     // 解析
