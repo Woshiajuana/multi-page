@@ -15,6 +15,6 @@ module.exports = {
 
     // 出口配置
     assetsRoot: resolve('dist'),
-    assetsPublicPath: './',
+    assetsPublicPath: isDevServer ? '/' : './',
     assetsSubDirectory: 'assets',
 };
