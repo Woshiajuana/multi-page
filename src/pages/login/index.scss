@@ -1,32 +1,25 @@
 
 @import "~src/assets/scss/common";
 
+html,
 body{
-    background-color: #f2f2f2;
+    @extend %w100;
+    @extend %h100;
 }
-
-section{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: j(40);
-    h2{
-        font-size: 18px;
+.login-wrap{
+    @extend %ma;
+    padding: 30vh 0;
+    max-width: 420px;
+    .login-form {
+        max-width: 300px;
     }
-    img{
-        height: 50px;
+    .login-form-forgot {
+        float: right;
     }
-    i{
-        @extend %db;
-        width: 40px;
-        height: 40px;
-        &.i1{
-            background: url("~src/assets/images/react-logo.jpeg") center no-repeat;
-            background-size: contain;
-        }
-        &.i2{
-            background: url("https://img.owulia.com/daysnap/607d0ca6d3ad886378eb0cd8/AVATAR/20210419163036.jpeg?w=64") center no-repeat;
-            background-size: contain;
-        }
+    .ant-col-rtl .login-form-forgot {
+        float: left;
+    }
+    .login-form-button {
+        width: 100%;
     }
 }
