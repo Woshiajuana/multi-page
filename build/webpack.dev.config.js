@@ -76,7 +76,7 @@ module.exports = merge(webpackBaseConfig, {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'assets/css/[name].[contenthash:10].css',
+            filename: 'assets/css/[name].[contenthash:8].css',
         }),
         new CopyWebpackPlugin({
             patterns: [

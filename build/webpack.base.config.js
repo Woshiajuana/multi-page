@@ -31,7 +31,7 @@ module.exports = {
 
     // 出口文件
     output: {
-        filename: 'assets/js/[name].[contenthash:10].js',
+        filename: 'assets/js/[name].[contenthash:8].js',
         path: resolve(__dirname, '../dist'),
         // publicPath: '../../'
     },
@@ -94,15 +94,15 @@ module.exports = {
                     outputPath: 'assets/images',
                 },
             },
-            // // 其他文件
-            // {
-            //     exclude: /\.(css|scss|sass|js|html|png|jpe?g|gif)/,
-            //     loader: 'file-loader',
-            //     options: {
-            //         name: '[name].[hash:4].[ext]',
-            //         outputPath: 'assets/media',
-            //     },
-            // },
+            // 媒体文件
+            {
+                test: /\.(mp3|mp4)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[hash:4].[ext]',
+                    outputPath: 'assets/media',
+                }
+            },
         ],
     },
 
