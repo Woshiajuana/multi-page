@@ -1,2 +1,27 @@
 
 @import "~src/assets/scss/common";
+
+html,
+body{
+    @extend %w100;
+    @extend %h100;
+}
+#root{
+    @extend %w100;
+    @extend %h100;
+    @extend %df;
+    @extend %fdc;
+}
+.main-wrap{
+    @extend %df1;
+    @extend %df;
+    @extend %w100;
+}
+.menu-section{
+    @extend %h100;
+    overflow-y: auto;
+}
+.main-inner{
+    @extend %df1;
+    @extend %h100;
+}

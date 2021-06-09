@@ -11,7 +11,10 @@ const ViewPage = () => {
     return (
         <Fragment>
             <NavBar/>
-            <MenuSection/>
+            <div className="main-wrap">
+                <MenuSection/>
+                <div className="main-inner"/>
+            </div>
         </Fragment>
     );
 };
