@@ -1,11 +1,11 @@
 
+import 'antd/dist/antd.min.css'
+import './index.scss'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import 'antd/dist/antd.min.css'
-
-import './index.scss'
 
 const Login = () => {
     const onFinish = (values) => {
@@ -57,4 +57,4 @@ const Login = () => {
 };
 
 
-ReactDOM.render(<Login/>, document.getElementById("root"));
+ReactDOM.render(<Login/>, document.getElementById('root'));

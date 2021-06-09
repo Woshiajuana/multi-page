@@ -8,6 +8,8 @@
     {{block 'head'}}{{/block}}
 </head>
 <body>
-    {{block 'content'}}{{/block}}
+    {{block 'content'}}
+    <div id="root"></div>
+    {{/block}}
 </body>
 </html>

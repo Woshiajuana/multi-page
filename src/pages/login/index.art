@@ -2,9 +2,3 @@
 {{extend 'src/layouts/layout.art'}}
 
 {{block 'title'}}登录 | SillyPutty{{/block}}
-
-{{block 'content'}}
-
-<div id="root"></div>
-
-{{/block}}

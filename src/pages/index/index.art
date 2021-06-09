@@ -1,0 +1,4 @@
+
+{{extend 'src/layouts/layout.art'}}
+
+{{block 'title'}}主面板 | SillyPutty{{/block}}
