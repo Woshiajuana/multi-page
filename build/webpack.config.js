@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const resolveFilename = require('art-template/lib/compile/adapter/resolve-filename');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const {
     resolve,
@@ -15,6 +16,7 @@ const {
 const {
     isDevServer,
     isEnvProduction,
+    useCompress,
     entryRoot,
     assetsRoot,
     assetsPublicPath,
@@ -152,7 +154,6 @@ if (isDevServer) {
                 // css 样式配置
                 {
                     test: /\.css$/,
-                    // exclude: /node_modules/,
                     use: [
                         'style-loader',
                         'css-loader',
@@ -161,7 +162,6 @@ if (isDevServer) {
                 // scss 样式
                 {
                     test: /\.s(c|a)ss$/,
-                    exclude: /node_modules/,
                     use: [
                         'style-loader',
                         'css-loader',
@@ -208,6 +208,31 @@ if (isDevServer) {
             },
         },
     ];
+    const plugins = [
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: parseAssetsPath('css/[name].[contenthash:8].css'),
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    // 定义要拷贝的源目录
+                    from: resolve('public'),
+                    // 定义要拷贝到的目标目录
+                    to: resolve('dist'),
+                },
+            ],
+        }),
+    ];
+    if (useCompress) {
+        plugins.push(new CompressionPlugin({
+            filename: '[path].gz[query]', // 目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
+            algorithm: 'gzip', // 算法
+            test: new RegExp('\\.(js|css)$'), // 压缩 js 与 css
+            threshold: 10240, // 只处理比这个值大的资源。按字节计算
+            minRatio: 0.8 // 只有压缩率比这个值小的资源才会被处理
+        }));
+    }
     webpackConfig = merge(webpackConfig, {
         // loader 配置
         module: {
@@ -215,7 +240,6 @@ if (isDevServer) {
                 // css 样式
                 {
                     test: /\.css$/,
-                    // exclude: /node_modules/,
                     use: [
                         ...styleUse,
                     ],
@@ -223,7 +247,6 @@ if (isDevServer) {
                 // sass 样式
                 {
                     test: /\.s(c|a)ss$/,
-                    exclude: /node_modules/,
                     use: [
                         ...styleUse,
                         'sass-loader',
@@ -232,23 +255,9 @@ if (isDevServer) {
             ]
         },
         // 插件
-        plugins: [
-            new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename: parseAssetsPath('css/[name].[contenthash:8].css'),
-            }),
-            new CopyWebpackPlugin({
-                patterns: [
-                    {
-                        // 定义要拷贝的源目录
-                        from: resolve('public'),
-                        // 定义要拷贝到的目标目录
-                        to: resolve('dist'),
-                    },
-                ],
-            }),
-        ],
+        plugins,
     });
+
 }
 
 module.exports = webpackConfig;

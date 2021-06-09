@@ -17,4 +17,7 @@ module.exports = {
     assetsRoot: resolve('dist'),
     assetsPublicPath: isDevServer ? '/' : './',
     assetsSubDirectory: 'assets',
+
+    // 是否压缩
+    useCompress: true,
 };
