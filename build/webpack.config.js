@@ -57,6 +57,29 @@ let webpackConfig = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
+                options: {
+                    "presets": [
+                        [
+                            "@babel/preset-react",
+                        ],
+                        [
+                            "@babel/preset-env",
+                            {
+                                "useBuiltIns": "usage",
+                                "corejs": {
+                                    "version": 3
+                                },
+                                "targets": {
+                                    "chrome": "60",
+                                    "firefox": "60",
+                                    "ie": "9",
+                                    "safari": "10",
+                                    "edge": "17"
+                                }
+                            }
+                        ],
+                    ]
+                }
             },
             // html
             {
@@ -129,7 +152,7 @@ if (isDevServer) {
                 // css 样式配置
                 {
                     test: /\.css$/,
-                    exclude: /node_modules/,
+                    // exclude: /node_modules/,
                     use: [
                         'style-loader',
                         'css-loader',
@@ -192,7 +215,7 @@ if (isDevServer) {
                 // css 样式
                 {
                     test: /\.css$/,
-                    exclude: /node_modules/,
+                    // exclude: /node_modules/,
                     use: [
                         ...styleUse,
                     ],

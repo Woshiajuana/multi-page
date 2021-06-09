@@ -5,9 +5,6 @@
 
 {{block 'content'}}
 
-<d>111</d>
-<d>222</d>
-<d>333</d>
-<d>444</d>
+<div id="root"></div>
 
 {{/block}}
