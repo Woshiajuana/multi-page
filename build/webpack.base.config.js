@@ -1,47 +1,49 @@
 
-const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { generateEntryByPath } = require('./utils');
+const {
+    resolve,
+    isEnvProduction,
+    generateEntryByPath,
+    parseAssetsPath,
+    generateHtmlWebpackPluginsByEntry,
+} = require('./utils');
 
-// 生成入口文件
-const entry = generateEntryByPath(resolve(__dirname, '../src/pages'));
+const {
+    entryRoot,
+    assetsRoot,
+} = require('./config');
 
-// 生成多入口模板 Html 文件插件
-const htmlWebpackPlugins = (entry => {
-    return Object.keys(entry).map(key => new HtmlWebpackPlugin({
-        filename: `${key}.html`,
-        template: entry[key].replace('index.js', 'index.html'),
-        minify: {
-            removeAttributeQuotes: false, // 移除属性的引号
-            removeComments: false, // 移除注释
-            collapseWhitespace: false, // 折叠空白区域
-        },
-        chunks: [key],
-        inject: true,
-    }));
-})(entry);
+const entry = generateEntryByPath(entryRoot);
 
 module.exports = {
 
-    // target 配置
-    target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
+    // 模式
+    mode: isEnvProduction ? 'production' : 'development',
 
-    // 入口文件
+    // 构建目标
+    target: 'browserslist',
+
+    // 入口
     entry,
 
-    // 出口文件
+    // 出口
     output: {
-        filename: 'assets/js/[name].[contenthash:8].js',
-        path: resolve(__dirname, '../dist'),
-        // publicPath: '../../'
+        path: assetsRoot,
+        filename: `[name].[contenthash:8].js`,
     },
 
-    // 替换路径配置
+    // 解析
     resolve: {
         alias: {
-            '@': resolve(__dirname, '../src/'),
-            'src': resolve(__dirname, '../src/'),
+            '@': resolve('src'),
+            'src': resolve('src'),
         },
+        extensions: [
+            '.js',
+            '.ts',
+            '.vue',
+            '.jsx',
+            '.json'
+        ],
     },
 
     // loader 配置
@@ -52,26 +54,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                options: {
-                    presets: [
-                        [
-                            '@babel/preset-env',
-                            {
-                                "useBuiltIns": "usage",
-                                "corejs": {
-                                    "version": 3
-                                },
-                                "targets": {
-                                    "chrome": "60",
-                                    "firefox": "60",
-                                    "ie": "9",
-                                    "safari": "10",
-                                    "edge": "17"
-                                }
-                            },
-                        ]
-                    ],
-                }
             },
             // html
             {
@@ -80,18 +62,26 @@ module.exports = {
                 loader: 'html-loader',
                 options: {
                     esModule: false,
-                }
+                },
             },
             // 图片
             {
-                test: /\.(png|jpe?g|gif)$/,
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 exclude: /node_modules/,
                 loader: 'url-loader',
                 options: {
                     limit: 10 * 1024,
                     esModule: false,
-                    name: '[name][hash:10].[ext]',
-                    outputPath: 'assets/images',
+                    name: parseAssetsPath('images/[name].[hash:8].[ext]'),
+                },
+            },
+            // 字体
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: parseAssetsPath('fonts/[name].[hash:8].[ext]')
                 },
             },
             // 媒体文件
@@ -99,16 +89,15 @@ module.exports = {
                 test: /\.(mp3|mp4)$/,
                 loader: 'file-loader',
                 options: {
-                    name: '[name].[hash:4].[ext]',
-                    outputPath: 'assets/media',
+                    name: parseAssetsPath('media/[name].[hash:8].[ext]')
                 }
             },
-        ],
+        ]
     },
 
     // 插件
     plugins: [
-        ...htmlWebpackPlugins,
+        ...generateHtmlWebpackPluginsByEntry(entry),
     ],
 
 };

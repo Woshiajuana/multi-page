@@ -1,12 +1,9 @@
 
-const { resolve } = require('path');
 const { merge } = require('webpack-merge');
+const { resolve } = require('./utils');
 const webpackBaseConfig = require('./webpack.base.config');
 
 module.exports = merge(webpackBaseConfig, {
-
-    // 模式
-    mode: 'development',
 
     // loader 配置
     module: {
@@ -38,7 +35,7 @@ module.exports = merge(webpackBaseConfig, {
         // 禁止安全检测
         disableHostCheck: true,
         // 运行的目录
-        contentBase: resolve(__dirname, '../public/'),
+        contentBase: resolve('public'),
         // host
         host: '0.0.0.0',
         // 启动 gzip 压缩

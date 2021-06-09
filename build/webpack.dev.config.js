@@ -11,7 +11,7 @@ const webpackBaseConfig = require('./webpack.base.config');
 module.exports = merge(webpackBaseConfig, {
 
     // 模式
-    mode: 'development',
+    target: 'web',
 
     // loader 配置
     module: {
