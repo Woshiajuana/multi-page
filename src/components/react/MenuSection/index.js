@@ -11,7 +11,14 @@ import {
 
 const { SubMenu } = Menu;
 
-export default function MenuSection() {
+export default function MenuSection({ history }) {
+
+    const onClick = event => {
+        const to = event.target.getAttribute('href');
+        history.push(to);
+        event.preventDefault();
+    };
+
     return (
         <Menu
             className="menu-section"
@@ -22,10 +29,13 @@ export default function MenuSection() {
             theme="light"
         >
             <Menu.Item key="1" icon={<MailOutlined />}>
-                Navigation One
+                <a href="https://www.baidu.com" onClick={onClick}>百度一下</a>
             </Menu.Item>
-            <Menu.Item key="2" icon={<CalendarOutlined />}>
-                Navigation Two
+            <Menu.Item key="2" icon={<MailOutlined />}>
+                <a href="https://baike.baidu.com/" onClick={onClick}>百度百科</a>
+            </Menu.Item>
+            <Menu.Item key="113" icon={<MailOutlined />}>
+                <a href="./template.html" onClick={onClick}>本地页面</a>
             </Menu.Item>
             <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Navigation Two">
                 <Menu.Item key="3">Option 3</Menu.Item>
